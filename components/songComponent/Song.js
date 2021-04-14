@@ -1,19 +1,24 @@
 import React from 'react';
+import { Text } from 'react-native';
 import Album from './Album';
 import Lyric from './Lyric';
 
 const Song = ({ route }) => {
-    const { authorName, songName } = route.params;
+    const { artistId, artistName, songName } = route.params;
 
     if (!songName) {
         return (
-            <Album authorName={authorName} />
+            <Album
+                artistId={artistId}
+                artistName={artistName}
+            />
         )
     } else {
         return (
-            <Lyric authorName={authorName} songName={songName} />
+            <Lyric />
         )
     }
+
 }
 
 export default Song

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Favorite from './tabs/Favorite';
 import Search from './tabs/Search';
 import { NavigationContainer } from '@react-navigation/native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Nav = () => {
     const Tab = createBottomTabNavigator();
@@ -18,10 +18,14 @@ const Nav = () => {
                         if (route.name === 'Favorite') {
                             iconName = 'heart';
                         } else if (route.name === 'Search') {
-                            iconName = 'search1';
+                            iconName = 'search';
                         }
 
-                        return <AntDesign name={iconName} size={size} color={color} />
+                        return <FontAwesome
+                            name={iconName}
+                            size={size}
+                            color={color}
+                        />
                     }
                 })}
 

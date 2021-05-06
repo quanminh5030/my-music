@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, ScrollView } from 'react-native';
-import { Tile, Header, Icon, ListItem, Text } from 'react-native-elements';
+import { View, ScrollView } from 'react-native';
+import { Avatar, Text } from 'react-native-elements';
 import FetchServices from '../services/FetchServices';
+// import { Helmet } from 'react-helmet';
+import { StatusBar } from 'expo-status-bar';
 
-const Lyric = ({ authorName, songName }) => {
+const Lyric = ({ route, navigation }) => {
     const [lyric, setLyric] = useState('');
+    const { song, artist } = route.params;
 
     useEffect(() => {
         FetchServices
-            .getLyrics(songName, authorName)
+            .getLyrics2(artist, song)
             .then(data => setLyric(data.lyrics))
             .catch(err => console.error(err))
     }, []);
 
-    console.log(typeof (lyric))
-
     return (
-        <View style={{ flex: 1, alignItems: 'center' }}>
-            <View style={{flex: 1, alignItems: 'center' }}>
-                <Text h1>{`"${songName}"`}</Text>
-                <Text h4>by</Text>
-                <Text h3>{authorName}</Text>
-            </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
+            <StatusBar hidden />
+            <Avatar
+                size='xlarge'
+                rounded
+                source={{
+                    uri: 'https://image.freepik.com/free-vector/colorful-guitarist-background_23-2147619655.jpg'
+                }}
+                containerStyle={{ marginTop: 20 }}
+            />
 
-            <ScrollView style={{flex: 1}}>
-                <Text>{lyric}</Text>
-            </ScrollView>
+            <Text h3 h3Style={{ textAlign: 'center', marginTop: 20, color: '#d46e7a', fontWeight: 'bold' }}>{song}</Text>
+            <Text h4 h4Style={{ color: '#d46e7a', marginTop: 10 }}>{artist}</Text>
+
+            {lyric ?
+                <ScrollView style={{ marginTop: 20, backgroundColor: '#fae1dc', borderRadius: 80, margin: 20 }}>
+                    <Text style={{ textAlign: 'center', margin: 30, color: '#d46e7a', fontSize: 18 }}>
+                        {lyric}
+                    </Text>
+                </ScrollView>
+                : <ScrollView style={{ marginTop: 50, backgroundColor: '#fae1dc' }}>
+                    <Text h4 h4Style={{ textAlign: 'center' }}>***</Text>
+                    <Text h4>There is no lyric available for this song</Text>
+                </ScrollView>
+            }
         </View>
+
     )
 }
 

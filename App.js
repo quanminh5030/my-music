@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { LogBox, StyleSheet } from 'react-native';
 import Nav from './components/Nav';
 
 export default function App() {
-
+  LogBox.ignoreLogs(['Remote debugger']);
   return (
     <>
-    <StatusBar hidden />
-    <Nav />
+      <StatusBar hidden />
+      <Nav />
     </>
   );
 }

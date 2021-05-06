@@ -1,21 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import FavoriteList from '../songComponent/FavoriteList';
+import Lyric from '../songComponent/Lyric';
 
 function Favorite() {
-    return (
-        <View style={styles.container}>
-            <Text>This is Favorite page</Text>
-        </View>
-    )
+  const Stack = createStackNavigator();
+
+  return (
+    <Stack.Navigator initialRouteName='Favorite'>
+      <Stack.Screen
+        name='Favorite'
+        component={FavoriteList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='Lyric'
+        component={Lyric}
+        options={{
+          headerTitleStyle: {fontSize: 1},
+          headerStatusBarHeight: 10,
+          headerBackTitleVisible: false,
+          headerTransparent: true,
+          headerTintColor: 'pink',
+
+        }}
+      />
+    </Stack.Navigator>
+  )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#c7c7c7',
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  })
 
 export default Favorite

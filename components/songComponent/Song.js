@@ -1,10 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
 import Album from './Album';
-import Lyric from './Lyric';
+import SongList from './SongList';
 
-const Song = ({ route }) => {
-    const { artistId, artistName, songName } = route.params;
+const Song = ({ route, navigation }) => {
+    const { artistId, artistName, songName, songId } = route.params;
 
     if (!songName) {
         return (
@@ -15,7 +14,12 @@ const Song = ({ route }) => {
         )
     } else {
         return (
-            <Lyric />
+            <SongList
+                songId={songId}
+                navigation={navigation}
+                songName={songName}
+                artistName={artistName}
+            />
         )
     }
 

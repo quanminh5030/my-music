@@ -7,12 +7,13 @@ import { StatusBar } from 'expo-status-bar';
 
 const Lyric = ({ route, navigation }) => {
     const [lyric, setLyric] = useState('');
-    const { song, artist } = route.params;
+    const { song, artist, songId } = route.params;
 
     useEffect(() => {
         FetchServices
-            .getLyrics2(artist, song)
-            .then(data => setLyric(data.lyrics))
+            .getLyrics(songId)
+            // .then(data => setLyric(data.lyrics))
+            .then(data => setLyric(data.message.body.lyrics.lyrics_body))
             .catch(err => console.error(err))
     }, []);
 

@@ -52,8 +52,10 @@ const getTopSongsByCountry = country => {
     return request.then(response => response.data)
 }
 
-const getSongsByGenre = genre => {
-
+const getSongsByGenre = genreId => {
+    const url = `${main_url}/track.search?f_music_genre_id=${genreId}&f_has_lyrics=1&page_size=10&apikey=${api_key}`;
+    const request = axios.get(url);
+    return request.then(response => response.data)
 }
 
 const FetchServices = {
@@ -64,7 +66,8 @@ const FetchServices = {
     getArtistInfo,
     getSongId,
     getLyrics2,
-    getTopSongsByCountry
+    getTopSongsByCountry,
+    getSongsByGenre
 }
 
 export default FetchServices;

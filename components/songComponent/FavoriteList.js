@@ -73,7 +73,8 @@ function FavoriteList({ navigation }) {
       onPress={() => {
         navigation.navigate('Lyric', {
           song: item.song,
-          artist: item.artist
+          artist: item.artist,
+          songId: item.songId
         })
       }}
 

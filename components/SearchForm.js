@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {  useState } from 'react';
+import {  StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FetchServices from './services/FetchServices';
-import BgImage from '../assets/bg_image.jpg';
 import SearchLyric from './overlaySearch/SearchLyric';
 import SearchAlbums from './overlaySearch/SearchAlbums';
 import { Header } from 'react-native-elements';

@@ -22,8 +22,10 @@ function Search() {
                 headerBackTitleVisible: false,
                 headerTintColor: 'white',
                 headerTransparent: true,
+            }}
 
-            }} />
+            />
+
             <Stack.Screen name='Lyric' component={Lyric}
                 options={{
                     headerTitleStyle: { fontSize: 1 },
@@ -31,7 +33,6 @@ function Search() {
                     headerBackTitleVisible: false,
                     headerTransparent: true,
                     headerTintColor: 'pink',
-
                 }}
             />
         </Stack.Navigator>

@@ -5,6 +5,7 @@ import Search from './tabs/Search';
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Dashboard from './tabs/Dashboard';
+import NavDashboard from './dashboard/NavDashboard';
 
 const Nav = () => {
     const Tab = createBottomTabNavigator();
@@ -44,7 +45,7 @@ const Nav = () => {
                     showLabel: false
                 }}
             >
-                <Tab.Screen name='Dashboard' component={Dashboard} />
+                <Tab.Screen name='Dashboard' component={NavDashboard} />
                 <Tab.Screen name='Favorite' component={Favorite} />
                 <Tab.Screen name='Search' component={Search} />
             </Tab.Navigator>

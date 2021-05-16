@@ -1,27 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { LogBox, StyleSheet } from 'react-native';
-import Nav from './components/Nav';
-import Login from './components/router/Login';
+
+import React, { useEffect } from 'react';
+import { LogBox } from 'react-native';
 import Router from './components/router/Router';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 export default function App() {
   LogBox.ignoreLogs(['Remote debugger']);
-  return (
-    <>
-      <StatusBar hidden />
-      {/* <Nav /> */}
 
-      <Router />
-    </>
+  // useEffect(() => changeScreenOrientation, [])
+
+  // async function changeScreenOrientation() {
+  //   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+  // }
+
+  return (
+    <Router />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#c7c7c7',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})

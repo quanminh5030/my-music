@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, StatusBar, StyleSheet } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Alert, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Header, Image, Input } from 'react-native-elements';
 import * as  firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBUkEJdwGHyjU5_2DFVaesHkQzUDNHnc1w",
-  authDomain: "mymusic-c0882.firebaseapp.com",
-  databaseURL: "https://mymusic-c0882-default-rtdb.firebaseio.com",
-  projectId: "mymusic-c0882",
-  storageBucket: "mymusic-c0882.appspot.com",
-  messagingSenderId: "613797255615",
-  appId: "1:613797255615:web:e2e093c71441ff34d7e90a"
-};
+import { Link } from 'react-router-native';
+import { firebaseConfig } from '../../config/keysConfig';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -20,17 +12,12 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
-const Signup = ({ setIsLogin }) => {
-
+const Signup = () => {
   const [user, setUser] = useState({ username: '', password: '' })
   const [pwCheck, setPwCheck] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isHidden, setIsHidden] = useState(true);
   const [icon, setIcon] = useState(true);
-
-  useEffect(() => {
-    setIsLogin(false)
-  }, [])
 
   const showPassword = () => {
     setIsHidden(!isHidden);
@@ -63,72 +50,133 @@ const Signup = ({ setIsLogin }) => {
       setUser({ username: '', password: '' });
       setPwCheck('');
 
-      Alert.alert('User created successfully!')
+      Alert.alert('User created successfully!');
+
+      // firebase.database().goOffline();
     }
   }
 
   return (
-    <>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <StatusBar hidden />
 
-      <Input
-        placeholder='Enter user name'
-        value={user.username}
-        onChangeText={text => {
-          setUser({ ...user, username: text.trim().toLowerCase() })
-        }}
-        containerStyle={{ width: '80%' }}
+      <Header
+        containerStyle={{ height: 150, backgroundColor: 'white' }}
+        backgroundImage={require('../../assets/myImg/camp.jpg')}
+        backgroundImageStyle={{ resizeMode: 'cover', height: 200, borderBottomLeftRadius: 50, borderBottomRightRadius: 120 }}
       />
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', marginTop: 40, marginBottom: 40, justifyContent: 'center', width: '80%', backgroundColor: '#FFDCE0', borderRadius: 50 }}>
+          <Link to='/login'
+            style={{ width: '50%', borderRadius: 50, backgroundColor: '#FFDCE0' }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                padding: 10,
+                fontSize: 15,
+                color: '#FF94A1'
+              }}
+            >Log In</Text>
+          </Link>
 
-      <Input
-        placeholder='Password'
-        secureTextEntry={isHidden}
-        value={user.password}
-        onChangeText={text => {
-          setUser({ ...user, password: text.trim() })
-        }}
-        containerStyle={{ width: '80%' }}
+          <Link to='/signup'
+            style={{ width: '50%', borderRadius: 50, backgroundColor: '#FF94A1' }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                padding: 10,
+                fontSize: 15,
+                color: 'white',
+              }}
+            >
+              Sign Up
+                </Text>
+          </Link>
+        </View>
 
-        rightIcon={
-          <Icon
-            name={icon ? 'eye' : 'eye-slash'}
-            color='gray'
-            size={25}
-            onPress={showPassword}
-          />}
-      />
+        <Input
+          placeholder='Enter user name'
+          value={user.username}
+          onChangeText={text => {
+            setUser({ ...user, username: text.trim().toLowerCase() })
+          }}
+          containerStyle={{ width: '80%' }}
+        />
 
-      <Input
-        placeholder='Confirm password'
-        secureTextEntry={isHidden}
-        value={pwCheck}
-        onChangeText={handleCheckPassword}
-        containerStyle={{ width: '80%' }}
-        errorMessage={errorMsg}
-        errorStyle={errorMsg && { color: 'red', fontSize: 10 }}
+        <Input
+          placeholder='Password'
+          secureTextEntry={isHidden}
+          value={user.password}
+          onChangeText={text => {
+            setUser({ ...user, password: text.trim() })
+          }}
+          containerStyle={{ width: '80%' }}
 
-        rightIcon={
-          <Icon
-            name={icon ? 'eye' : 'eye-slash'}
-            color='gray'
-            size={25}
-            onPress={showPassword}
-          />}
-      />
+          rightIcon={
+            <Icon
+              name={icon ? 'eye' : 'eye-slash'}
+              color='gray'
+              size={25}
+              onPress={showPassword}
+            />}
+        />
 
-      <Button
-        title='Sign up'
-        containerStyle={{ width: '75%', marginTop: 60, borderRadius: 50 }}
-        buttonStyle={{ backgroundColor: '#FF94A1' }}
-        onPress={signUp}
-      />
-    </>
+        <Input
+          placeholder='Confirm password'
+          secureTextEntry={isHidden}
+          value={pwCheck}
+          onChangeText={handleCheckPassword}
+          containerStyle={{ width: '80%' }}
+          errorMessage={errorMsg}
+          errorStyle={errorMsg && { color: 'red', fontSize: 10 }}
+
+          rightIcon={
+            <Icon
+              name={icon ? 'eye' : 'eye-slash'}
+              color='gray'
+              size={25}
+              onPress={showPassword}
+            />}
+        />
+
+        <Button
+          title='Sign up'
+          containerStyle={{ width: '75%', marginTop: 20, borderRadius: 50 }}
+          buttonStyle={{ backgroundColor: '#FF94A1' }}
+          onPress={signUp}
+        />
+
+        <View style={{ width: '75%', alignItems: 'center', margin: 25 }}>
+          <Text style={{ fontSize: 15, color: '#FF94A1' }}>
+            OR
+        </Text>
+        </View>
+
+        <View style={{ flex: 1, display: 'flex', flexDirection: 'row-reverse', width: '50%', justifyContent: 'space-evenly' }}>
+          <TouchableOpacity onPress={() => console.log('google')}>
+            <Image
+              source={require('../../assets/myImg/google.png')}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => console.log('facebook')}>
+            <Image
+              source={require('../../assets/myImg/facebook.png')}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.9,
     backgroundColor: '#FFF5F7',
     width: '80%',
     borderRadius: 50,

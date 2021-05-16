@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const main_url = 'https://api.musixmatch.com/ws/1.1';
-const api_key = 'a4a2831420d51c4a4caca438f289f647';
+import {main_url, api_key} from '../../config/keysConfig';
 
 const getAlbums = artistId => {
     const url = `${main_url}/artist.albums.get?artist_id=${artistId}&apikey=${api_key}`;
@@ -40,6 +38,7 @@ const getSongId = songName => {
     return request.then(response => response.data)
 }
 
+//full lyric but different api. also poor data.
 const getLyrics2 = (artist, song) => {
     const url = `https://api.lyrics.ovh/v1/${artist}/${song}`;
     const request = axios.get(url);

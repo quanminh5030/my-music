@@ -54,8 +54,9 @@ const SongsByCountry = ({ route, navigation }) => {
       <StatusBar hidden />
 
       <Header
+       containerStyle={{ height: 80}}
         backgroundColor='pink'
-        centerComponent={{ text: 'Top songs in ' + country, style: { color: 'white', fontSize: 22, fontWeight: 'bold' } }}
+        centerComponent={{ text: 'Top songs in ' + country.toLowerCase(), style: { color: 'white', fontSize: 22, fontWeight: 'bold' } }}
       />
 
       <FlatList

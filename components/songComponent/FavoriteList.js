@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
-import * as firebase from 'firebase';
+import { Alert, FlatList, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Header, ListItem } from 'react-native-elements';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBUkEJdwGHyjU5_2DFVaesHkQzUDNHnc1w",
-  authDomain: "mymusic-c0882.firebaseapp.com",
-  databaseURL: "https://mymusic-c0882-default-rtdb.firebaseio.com",
-  projectId: "mymusic-c0882",
-  storageBucket: "mymusic-c0882.appspot.com",
-  messagingSenderId: "613797255615",
-  appId: "1:613797255615:web:e2e093c71441ff34d7e90a"
-};
+import { Header, ListItem, Text } from 'react-native-elements';
+import { firebaseConfig } from '../../config/keysConfig';
+import * as firebase from 'firebase';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -68,36 +59,36 @@ function FavoriteList({ navigation }) {
   }
 
   const renderList = ({ item }) =>
-    <ListItem
-      onPress={() => {
-        navigation.navigate('Lyric', {
-          song: item.song,
-          artist: item.artist,
-          songId: item.songId
-        })
-      }}
+    item ?
+      <ListItem
+        onPress={() => {
+          navigation.navigate('Lyric', {
+            song: item.song,
+            artist: item.artist,
+            songId: item.songId
+          })
+        }}
 
-      style={{
-        marginTop: 15,
-      }}
+        style={{
+          marginTop: 15,
+        }}
 
-      containerStyle={{
-        backgroundColor: '#fae1dc',
-        borderRadius: 15,
-      }}
-    >
-      <ListItem.Content>
-        <ListItem.Title style={{ color: '#d46e7a', fontWeight: 'bold' }}>{item.song}</ListItem.Title>
-        <ListItem.Subtitle style={{ color: '#d46e7a' }}>{item.artist}</ListItem.Subtitle>
-      </ListItem.Content>
-      <ListItem.Chevron
-        name='trash' size={25} color='#b8515d'
-        onPress={() => removeSong(item)}
-      />
-    </ListItem>
+        containerStyle={{
+          backgroundColor: '#fae1dc',
+          borderRadius: 15,
+        }}
+      >
+        <ListItem.Content>
+          <ListItem.Title style={{ color: '#d46e7a', fontWeight: 'bold' }}>{item.song}</ListItem.Title>
+          <ListItem.Subtitle style={{ color: '#d46e7a' }}>{item.artist}</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron
+          name='trash' size={25} color='#b8515d'
+          onPress={() => removeSong(item)}
+        />
+      </ListItem>
 
-
-
+      : <View><Text>nothing</Text></View>
 
   return (
     <View>
@@ -105,7 +96,7 @@ function FavoriteList({ navigation }) {
 
       <Header
         backgroundColor='pink'
-        containerStyle={{ height: 100, borderBottomLeftRadius: 50, borderBottomRightRadius: 50, }}
+        containerStyle={{ height: 150, borderBottomLeftRadius: 50, borderBottomRightRadius: 50, }}
         centerComponent={{ text: 'Favorite Songs', style: { color: 'white', fontSize: 30, fontWeight: 'bold' } }}
       />
 
@@ -116,8 +107,8 @@ function FavoriteList({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderList}
         />
-        : <View>
-          <Text>Loading...</Text>
+        : <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text h2>Loading...</Text>
         </View>}
     </View>
   )

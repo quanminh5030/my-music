@@ -110,7 +110,7 @@ const Album = ({ artistId, artistName }) => {
       <StatusBar hidden />
       {albums.length === 0 ?
         <Tile
-          imageSrc={require('../../assets/sorry.jpg')}
+          imageSrc={require('../../assets/myImg/sorry.jpg')}
           title={`There are no albums available for the artist "${artistName}". Please check the name again!`}
         />
         :

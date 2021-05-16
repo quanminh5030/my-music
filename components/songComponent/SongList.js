@@ -4,16 +4,7 @@ import { Header, ListItem } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as  firebase from 'firebase';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBUkEJdwGHyjU5_2DFVaesHkQzUDNHnc1w",
-  authDomain: "mymusic-c0882.firebaseapp.com",
-  databaseURL: "https://mymusic-c0882-default-rtdb.firebaseio.com",
-  projectId: "mymusic-c0882",
-  storageBucket: "mymusic-c0882.appspot.com",
-  messagingSenderId: "613797255615",
-  appId: "1:613797255615:web:e2e093c71441ff34d7e90a"
-};
+import { firebaseConfig } from '../../config/keysConfig';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

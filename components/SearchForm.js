@@ -47,7 +47,7 @@ const SearchForm = ({ navigation, route }) => {
 
         <View style={styles.container}>
             <Header
-                containerStyle={{ height: 100, borderBottomLeftRadius: 50, borderBottomRightRadius: 50,}}
+                containerStyle={{ height: 150, borderBottomLeftRadius: 80, borderBottomRightRadius: 80,}}
                 backgroundColor='pink'
                 centerComponent={{ text: 'Search', style: { color: 'white', fontSize: 30, fontWeight: 'bold' } }}
             />

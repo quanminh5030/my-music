@@ -54,8 +54,9 @@ const SongsByGenre = ({ route, navigation }) => {
       <StatusBar hidden />
 
       <Header
+        containerStyle={{ height: 80}}
         backgroundColor='pink'
-        centerComponent={{ text: genre + ' song', style: { color: 'white', fontSize: 22, fontWeight: 'bold' } }}
+        centerComponent={{ text: genre + ' songs', style: { color: 'white', fontSize: 22, fontWeight: 'bold' } }}
       />
 
       <FlatList

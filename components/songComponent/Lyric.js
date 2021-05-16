@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Avatar, Text } from 'react-native-elements';
 import FetchServices from '../services/FetchServices';
-// import { Helmet } from 'react-helmet';
 import { StatusBar } from 'expo-status-bar';
 
 const Lyric = ({ route, navigation }) => {
@@ -12,7 +11,6 @@ const Lyric = ({ route, navigation }) => {
     useEffect(() => {
         FetchServices
             .getLyrics(songId)
-            // .then(data => setLyric(data.lyrics))
             .then(data => setLyric(data.message.body.lyrics.lyrics_body))
             .catch(err => console.error(err))
     }, []);

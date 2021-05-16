@@ -4,8 +4,8 @@ import Favorite from './tabs/Favorite';
 import Search from './tabs/Search';
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Dashboard from './tabs/Dashboard';
 import NavDashboard from './dashboard/NavDashboard';
+import Logout from './Logout';
 
 const Nav = () => {
     const Tab = createBottomTabNavigator();
@@ -24,6 +24,8 @@ const Nav = () => {
                             iconName = 'search';
                         } else if (route.name === 'Dashboard') {
                             iconName = 'home'
+                        } else if (route.name === 'logout') {
+                            iconName = 'power-off'
                         }
 
                         return <FontAwesome5
@@ -31,7 +33,7 @@ const Nav = () => {
                             size={30}
                             color={color}
                             solid
-                            
+
                         />
                     }
                 })}
@@ -48,6 +50,8 @@ const Nav = () => {
                 <Tab.Screen name='Dashboard' component={NavDashboard} />
                 <Tab.Screen name='Favorite' component={Favorite} />
                 <Tab.Screen name='Search' component={Search} />
+
+                <Tab.Screen name='logout' component={Logout} />
             </Tab.Navigator>
         </NavigationContainer>
     )

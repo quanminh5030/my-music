@@ -5,6 +5,7 @@ import Login from './Login';
 import Signup from './Signup';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { Button, Header, Text } from 'react-native-elements';
+import Nav from '../Nav';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -66,6 +67,7 @@ const Router = () => {
           <Route exact path='/' component={Landing} />
           <Route path='/signup' render={() => <Signup setIsLogin={setIsLogin} />} />
           <Route path='/login' render={() => <Login setIsLogin={setIsLogin} />} />
+          <Route path='/app' render={() => <Nav />} />
         </View>
       </View>
     </NativeRouter>
@@ -80,10 +82,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center'
   },
-
-  route: {
-
-  }
 
 })
 

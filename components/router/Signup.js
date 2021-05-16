@@ -62,6 +62,8 @@ const Signup = ({ setIsLogin }) => {
 
       setUser({ username: '', password: '' });
       setPwCheck('');
+
+      Alert.alert('User created successfully!')
     }
   }
 

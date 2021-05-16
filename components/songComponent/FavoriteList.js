@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 import { StatusBar } from 'expo-status-bar';
 import { Header, ListItem } from 'react-native-elements';
-import { Text } from 'react-native';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUkEJdwGHyjU5_2DFVaesHkQzUDNHnc1w",

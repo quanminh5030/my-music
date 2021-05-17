@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, StatusBar, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button, Header, Image, Input } from 'react-native-elements';
 import * as  firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-native';
-import * as GoogleSignIn from 'expo-google-sign-in';
 import { firebaseConfig } from '../../config/keysConfig';
 
 if (!firebase.apps.length) {
@@ -14,66 +12,19 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
-const Login = () => {
+const Signup = () => {
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({ username: '', password: '' });
+  const [user, setUser] = useState({ username: '', password: '' })
+  const [pwCheck, setPwCheck] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const [isHidden, setIsHidden] = useState(true);
   const [icon, setIcon] = useState(true);
 
-  // const [googleUser, setGoogleUser] = useState(null);
-
-  let history = useHistory();
-
   useEffect(() => {
     getUsers();
-    // initAsync();
-    // return () => firebase.database().goOffline();
-  }, [user])
+  }, [])
 
-  // Google sign in
-  // const initAsync = async () => {
-  //   await GoogleSignIn.initAsync({
-  //     //clientId: '' in app.json
-  //   });
-
-  //   _syncUserWithStateAsync();
-  // }
-
-  // const _syncUserWithStateAsync = async () => {
-  //   const gUser = await GoogleSignIn.signInSilentlyAsync();
-  //   setGoogleUser(gUser);
-  // }
-
-  // const signOutAsync = async () => {
-  //   await GoogleSignIn.signOutAsync();
-  //   setGoogleUser(null);
-  // }
-
-  // const signInAsync = async () => {
-  //   try {
-  //     await GoogleSignIn.askForPlayServicesAsync();
-  //     const { type, user } = await GoogleSignIn.signInAsync();
-  //     if (type === 'success') {
-  //       _syncUserWithStateAsync()
-  //     }
-  //   } catch ({ message }) {
-  //     Alert.alert('login: Error: ' + message)
-  //   }
-  // };
-
-  // const ggSignIn = () => {
-  //   if (googleUser) {
-  //     signOutAsync();
-  //   } else {
-  //     signInAsync();
-  //   }
-  // }
-
-
-  const ggSignIn = () => {
-    console.log('google')
-  }
-
+  console.log(users)
 
   const getUsers = () => {
     firebase.database().ref('account').on('value', snapshot => {
@@ -84,36 +35,58 @@ const Login = () => {
     })
   }
 
-  console.log(users)
-
   const showPassword = () => {
     setIsHidden(!isHidden);
     setIcon(!icon);
   }
 
-  const getLoginResult = () => {
-    let result;
-    for (const element of users) {
-      if (element.username !== user.username || element.password !== user.password) {
-        result = 'fail';
-      } else {
-        result = 'success';
-        break;
+  const handleCheckPassword = pw => {
+    setPwCheck(pw);
+    if (pw !== user.password) {
+      setErrorMsg('Password is incorrect!')
+    } else {
+      setErrorMsg('');
+    }
+  }
+
+  const isUserExist = () => {
+    let userExist = false;
+    for (const u of users) {
+      if (u.username === user.username.toLowerCase()) {
+        userExist = true;
       }
     }
 
-    return result;
+    return userExist;
   }
 
-  const login = () => {
-    const result = getLoginResult();
+  const signUp = () => {
+    const userExist = isUserExist();
 
-    result === 'success' ? history.push('/app') : Alert.alert('Check username & password')
+    if (!user.username || !user.password) {
+      Alert.alert('Username or password is missing');
+    } else if (pwCheck !== user.password) {
+      Alert.alert('Password is incorrect')
+    } else if (userExist) {
+      Alert.alert('Username is already in used');
+      setUser({ users: '', password: '' });
+      setPwCheck('');
+    } else {
+      firebase.database().ref('account').push(
+        {
+          'username': user.username.trim().toLowerCase(),
+          'password': user.password
+        }
+      )
+      setUser({ username: '', password: '' });
+      setPwCheck('');
+      Alert.alert('User created successfully!');
+    }
+
   }
 
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-
       <StatusBar hidden />
 
       <Header
@@ -121,24 +94,9 @@ const Login = () => {
         backgroundImage={require('../../assets/myImg/camp.jpg')}
         backgroundImageStyle={{ resizeMode: 'cover', height: 200, borderBottomLeftRadius: 50, borderBottomRightRadius: 120 }}
       />
-
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', marginTop: 40, marginBottom: 40, justifyContent: 'center', width: '80%', backgroundColor: '#FFDCE0', borderRadius: 50 }}>
-
           <Link to='/login'
-            style={{ width: '50%', borderRadius: 50, backgroundColor: '#FF94A1' }}
-          >
-            <Text
-              style={{
-                textAlign: 'center',
-                padding: 10,
-                fontSize: 15,
-                color: 'white'
-              }}
-            >Log In</Text>
-          </Link>
-
-          <Link to='/signup'
             style={{ width: '50%', borderRadius: 50, backgroundColor: '#FFDCE0' }}
           >
             <Text
@@ -146,8 +104,20 @@ const Login = () => {
                 textAlign: 'center',
                 padding: 10,
                 fontSize: 15,
-                color: '#FF94A1',
+                color: '#FF94A1'
+              }}
+            >Log In</Text>
+          </Link>
 
+          <Link to='/signup'
+            style={{ width: '50%', borderRadius: 50, backgroundColor: '#FF94A1' }}
+          >
+            <Text
+              style={{
+                textAlign: 'center',
+                padding: 10,
+                fontSize: 15,
+                color: 'white',
               }}
             >
               Sign Up
@@ -155,18 +125,24 @@ const Login = () => {
           </Link>
         </View>
 
-
         <Input
           placeholder='Enter user name'
-          onChangeText={text => setUser({ ...user, username: text.toLowerCase() })}
+          value={user.username}
+          onChangeText={text => {
+            setUser({ ...user, username: text })
+          }}
           containerStyle={{ width: '80%' }}
         />
 
         <Input
           placeholder='Password'
-          onChangeText={text => setUser({ ...user, password: text })}
-          containerStyle={{ width: '80%' }}
           secureTextEntry={isHidden}
+          value={user.password}
+          onChangeText={text => {
+            setUser({ ...user, password: text.trim() })
+          }}
+          containerStyle={{ width: '80%' }}
+
           rightIcon={
             <Icon
               name={icon ? 'eye' : 'eye-slash'}
@@ -176,19 +152,29 @@ const Login = () => {
             />}
         />
 
-        <View style={{ width: '75%', alignItems: 'flex-end' }}>
-          <Text style={{ fontSize: 12, color: '#FF94A1' }}
-            onPress={() => console.log('forgot')}
-          >
-            Forgot password?
-        </Text>
-        </View>
+        <Input
+          placeholder='Confirm password'
+          secureTextEntry={isHidden}
+          value={pwCheck}
+          onChangeText={handleCheckPassword}
+          containerStyle={{ width: '80%' }}
+          errorMessage={errorMsg}
+          errorStyle={errorMsg && { color: 'red', fontSize: 10 }}
+
+          rightIcon={
+            <Icon
+              name={icon ? 'eye' : 'eye-slash'}
+              color='gray'
+              size={25}
+              onPress={showPassword}
+            />}
+        />
 
         <Button
-          title='Log in'
-          containerStyle={{ width: '75%', marginTop: 60, borderRadius: 50 }}
+          title='Sign up'
+          containerStyle={{ width: '75%', marginTop: 20, borderRadius: 50 }}
           buttonStyle={{ backgroundColor: '#FF94A1' }}
-          onPress={login}
+          onPress={signUp}
         />
 
         <View style={{ width: '75%', alignItems: 'center', margin: 25 }}>
@@ -197,8 +183,8 @@ const Login = () => {
         </Text>
         </View>
 
-        <View style={{flex: 1, display: 'flex', flexDirection: 'row-reverse', width: '50%', justifyContent: 'space-evenly'}}>
-          <TouchableOpacity onPress={ggSignIn}>
+        <View style={{ flex: 1, display: 'flex', flexDirection: 'row-reverse', width: '50%', justifyContent: 'space-evenly' }}>
+          <TouchableOpacity onPress={() => console.log('google')}>
             <Image
               source={require('../../assets/myImg/google.png')}
               style={{ width: 40, height: 40 }}
@@ -213,8 +199,8 @@ const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-
     </View>
+
   )
 }
 
@@ -224,9 +210,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF5F7',
     width: '80%',
     borderRadius: 50,
-    alignItems: 'center',
+    alignItems: 'center'
   },
 })
 
 
-export default Login
+export default Signup

@@ -1,4 +1,5 @@
 import React from 'react';
+import NavTrack from '../navigation/NavTrack';
 import Album from './Album';
 import SongList from './SongList';
 

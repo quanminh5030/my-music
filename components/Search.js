@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchForm from '../SearchForm';
-import Song from '../songComponent/Song';
+import SearchForm from './search/SearchForm';
+import Song from './songComponent/Song';
 import { createStackNavigator } from '@react-navigation/stack';
-import Lyric from '../songComponent/Lyric';
+import Lyric from './songComponent/Lyric';
 
 function Search() {
     const Stack = createStackNavigator();

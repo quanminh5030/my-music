@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import Lyric from '../songComponent/Lyric';
-import Dashboard from '../tabs/Dashboard';
-import SongsByCountry from './SongsByCountry';
-import SongsByGenre from './SongsByGenre';
+import Dashboard from '../Dashboard';
+import SongsByCountry from '../dashboard/SongsByCountry';
+import SongsByGenre from '../dashboard/SongsByGenre';
 
 const NavDashboard = () => {
     const Stack = createStackNavigator();

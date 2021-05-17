@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Favorite from './tabs/Favorite';
-import Search from './tabs/Search';
+import Favorite from '../Favorite';
+import Search from '../Search';
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import NavDashboard from './dashboard/NavDashboard';
-import Logout from './Logout';
+import NavDashboard from './NavDashboard';
+import Logout from '../authentication/Logout';
 
-const Nav = () => {
+const TabNavigation = () => {
     const Tab = createBottomTabNavigator();
 
     return (
@@ -50,11 +50,10 @@ const Nav = () => {
                 <Tab.Screen name='Dashboard' component={NavDashboard} />
                 <Tab.Screen name='Favorite' component={Favorite} />
                 <Tab.Screen name='Search' component={Search} />
-
                 <Tab.Screen name='logout' component={Logout} />
             </Tab.Navigator>
         </NavigationContainer>
     )
 }
 
-export default Nav;
+export default TabNavigation;

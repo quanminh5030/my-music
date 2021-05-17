@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import FavoriteList from '../songComponent/FavoriteList';
-import Lyric from '../songComponent/Lyric';
+import FavoriteList from './favorite/FavoriteList';
+import Lyric from './songComponent/Lyric';
 
 function Favorite() {
   const Stack = createStackNavigator();

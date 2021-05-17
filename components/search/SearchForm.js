@@ -1,6 +1,6 @@
 import React, {  useState } from 'react';
 import {  StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import FetchServices from './services/FetchServices';
+import FetchServices from '../services/FetchServices';
 import SearchLyric from './overlaySearch/SearchLyric';
 import SearchAlbums from './overlaySearch/SearchAlbums';
 import { Header } from 'react-native-elements';

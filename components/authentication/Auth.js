@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../Nav'
+import TabNavigation from '../navigation/TabNavigation'
 import Login from './Login'
 import Signup from './Signup'
 
@@ -8,7 +8,7 @@ const Auth = ({ authRoute }) => {
         <>
             {authRoute === 'login' && <Login />}
             {authRoute === 'signup' && <Signup />}
-            {authRoute === 'app' && <Nav />}
+            {authRoute === 'app' && <TabNavigation />}
         </>
     )
 }

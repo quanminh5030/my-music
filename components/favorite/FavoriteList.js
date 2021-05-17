@@ -88,7 +88,7 @@ function FavoriteList({ navigation }) {
         />
       </ListItem>
 
-      : <View><Text>nothing</Text></View>
+      : <View></View>
 
   return (
     <View>

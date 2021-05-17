@@ -38,8 +38,6 @@ const SongList = ({ songId, navigation }) => {
         }
       ]
     )
-
-
   }
 
   const renderSongs = ({ item }) =>
@@ -53,7 +51,6 @@ const SongList = ({ songId, navigation }) => {
           artist: item.track.artist_name,
         })
       }}
-      onLongPress={() => saveSong(item)}
 
       style={{
         marginTop: 15,
@@ -69,7 +66,10 @@ const SongList = ({ songId, navigation }) => {
         <ListItem.Title style={{ color: '#d46e7a', fontWeight: 'bold' }}>{item.track.track_name}</ListItem.Title>
         <ListItem.Subtitle style={{ color: '#d46e7a' }} >{item.track.artist_name}</ListItem.Subtitle>
       </ListItem.Content>
-      <ListItem.Chevron name='caret-forward-circle-outline' size={40} color='#b8515d' />
+      <ListItem.Chevron
+        name='add-circle' size={40} color='#b8515d'
+        onPress={() => saveSong(item)}
+      />
     </ListItem>
 
   return (

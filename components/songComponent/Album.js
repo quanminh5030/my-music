@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Linking, StyleSheet, View } from 'react-native';
-import { Tile, Header, Icon, ListItem, Text } from 'react-native-elements';
+import { Tile, Header, Icon, ListItem } from 'react-native-elements';
 import FetchServices from '../services/FetchServices';
 import { StatusBar } from 'expo-status-bar';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Track from './Track';
+import * as  firebase from 'firebase';
+import { firebaseConfig } from '../../config/keysConfig';
 
-const Album = ({ artistId, artistName }) => {
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
+
+const Album = ({ artistId, artistName, navigation }) => {
+  console.log('nav', navigation)
   const [albums, setAlbums] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [artist, setArtist] = useState({});
@@ -54,6 +63,30 @@ const Album = ({ artistId, artistName }) => {
     setVisible(!visible);
   }
 
+  const saveSong = item => {
+    Alert.alert(
+      '',
+      'ADD SONG TO FAVORLITE LIST?',
+      [
+        {
+          text: 'OK',
+          onPress: () => firebase.database().ref('tracks').push(
+            {
+              'song': item.track.track_name,
+              'artist': item.track.artist_name,
+              'songId': item.track.track_id
+            }
+          ),
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        }
+      ]
+    )
+  }
+
   const renderAlbum = ({ item }) =>
     <ListItem
       topDivider
@@ -87,12 +120,16 @@ const Album = ({ artistId, artistName }) => {
     <ListItem
       topDivider
       bottomDivider
-      onPress={() => console.log(item.track.track_id)}
+      onPress={() => {
+        navigation.navigate('Lyric', {
+          songId: item.track.track_id,
+          song: item.track.track_name,
+          artist: item.track.artist_name,
+        })
+      }}
       containerStyle={{ backgroundColor: '#000000a0' }}
     >
-      <MaterialIcons
-        name='audiotrack'
-        style={{ fontSize: 25, color: 'white' }} />
+      <FontAwesome name='music' size={22} color='white' />
       <ListItem.Content>
         <ListItem.Title style={{ color: 'white' }}>{item.track.track_name}</ListItem.Title>
         <ListItem.Subtitle style={{ color: 'white' }}>
@@ -103,6 +140,10 @@ const Album = ({ artistId, artistName }) => {
           }
         </ListItem.Subtitle>
       </ListItem.Content>
+      <ListItem.Chevron
+        name='add-circle' size={30} color='white'
+        onPress={() => saveSong(item)}
+      />
     </ListItem>
 
   return (

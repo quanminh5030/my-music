@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, View, ImageBackground,StatusBar } from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
-import {countryList, genreList } from '../../config/dashboardConfig';
+import {countryList, genreList } from '../config/dashboardConfig';
 
 function Dashboard({ navigation }) {
 
@@ -74,7 +74,7 @@ function Dashboard({ navigation }) {
 
       <Header
         containerStyle={{ height: 150 }}
-        backgroundImage={require('../../assets/myImg/headerDashboard.jpg')}
+        backgroundImage={require('../assets/myImg/headerDashboard.jpg')}
         backgroundImageStyle={{ resizeMode: 'cover' }}
       />
 
